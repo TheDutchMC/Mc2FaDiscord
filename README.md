@@ -18,7 +18,8 @@ Minecraft Two Factor authorization via Discord for OPs or Players with certain p
     3. Invite the bot to your server:
         1. Go to the OAuth2 tab, then General
         2. Set the authorization mode to `In-app Authorization`
-        3. Go to the OAuth2 tab, then URL Generator
+        3. Select the scopes `bot` and `applications.commands`
+        4. Go to the OAuth2 tab, then URL Generator
         4. Select the scopes `bot` and `applications.commands`
         5. Copy the URL at the bottom of the page and open it
         6. Complete the process
