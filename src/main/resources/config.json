@@ -1,0 +1,16 @@
+{
+  "discordBotToken": null,
+  "botName": null,
+  "guildId": null,
+  "mysql": {
+    "host": null,
+    "database": null,
+    "username": null,
+    "password": null
+  },
+  "permissions": [
+    "foo.bar"
+  ],
+  "applyToOp": true,
+  "trustedDuration": 3600
+}

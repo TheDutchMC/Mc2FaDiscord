@@ -1,0 +1,8 @@
+name: Mc2FaDiscord
+main: dev.array21.mc2fadiscord.Mc2FaDiscord
+version: @version@
+author: TheDutchMC
+api-version: 1.16
+
+commands:
+  associate:

@@ -1,0 +1,114 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+plugins {
+    id 'java'
+	id 'com.github.johnrengelman.shadow' version '7.1.1'
+}
+
+version = pluginVersion
+group = 'dev.array21'	
+
+repositories {
+	mavenCentral()
+	maven{ url "https://hub.spigotmc.org/nexus/content/repositories/snapshots" }
+
+}
+
+processResources {
+	from(sourceSets.main.resources.srcDirs) {
+		filter ReplaceTokens, tokens: [version: version]
+	}
+}
+
+dependencies {
+	compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
+	compileOnly 'org.yaml:snakeyaml:1.30'
+	compileOnly 'com.google.code.gson:gson:2.8.9'
+
+	implementation 'org.slf4j:log4j-over-slf4j:2.0.0-alpha5'
+	implementation 'org.apache.logging.log4j:log4j-api:2.17.0'
+	implementation 'org.apache.logging.log4j:log4j-core:2.17.0'
+	implementation 'dev.array21:classvalidator:1.0.0'
+	implementation ("net.dv8tion:JDA:5.0.0-alpha.2") {
+		exclude module: 'opus-java'
+	}
+	implementation 'dev.array21:jdbd:1.0.4'
+}
+
+processResources  {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+task testJar(type: ShadowJar) {
+	description 'Build a test Jar'
+	archiveClassifier = 'DEV'
+
+	from sourceSets.main.output
+	configurations = [project.configurations.runtimeClasspath]
+
+	relocate 'dev.array21.classvalidator', 'dev.array21.mc2fadiscord.deps.dev.array21.classvalidator'
+	relocate 'net.dv8tion.jda', 'dev.array21.mc2fadiscord.deps.net.dv8tion.jda'
+	relocate 'okhttp3', 'dev.array21.mc2fadiscord.deps.okhttp3'
+	relocate 'okio', 'dev.array21.mc2fadiscord.deps.okio'
+	relocate 'com.fasterxml', 'dev.array21.mc2fadiscord.deps.com.fasterxml'
+	relocate 'com.iwebpp', 'dev.array21.mc2fadiscord.deps.com.iwebpp'
+	relocate 'com.neovisionaries', 'dev.array21.mc2fadiscord.deps.com.neovisionaries'
+	relocate 'gnu.trove.', 'dev.array21.mc2fadiscord.deps.gnu.trove'
+	relocate 'org.apache.', 'dev.array21.mc2fadiscord.deps.org.apache'
+	relocate 'org.intellij.', 'dev.array21.mc2fadiscord.deps.org.intellij'
+	relocate 'org.jetbrains', 'dev.array21.mc2fadiscord.deps.org.jetbrains'
+	relocate 'org.slf4j', 'dev.array21.mc2fadiscord.deps.org.dlf4j'
+
+	destinationDirectory = file("$rootDir/server/plugins")
+}
+
+task releaseJar(type: ShadowJar) {
+	description 'Build a release Jar'
+	archiveClassifier = 'RELEASE'
+
+	from sourceSets.main.output
+	configurations = [project.configurations.runtimeClasspath]
+
+	relocate 'dev.array21.classvalidator', 'dev.array21.mc2fadiscord.deps.dev.array21.classvalidator'
+	relocate 'net.dv8tion.jda', 'dev.array21.mc2fadiscord.deps.net.dv8tion.jda'
+	relocate 'okhttp3', 'dev.array21.mc2fadiscord.deps.okhttp3'
+	relocate 'okio', 'dev.array21.mc2fadiscord.deps.okio'
+	relocate 'com.fasterxml', 'dev.array21.mc2fadiscord.deps.com.fasterxml'
+	relocate 'com.iwebpp', 'dev.array21.mc2fadiscord.deps.com.iwebpp'
+	relocate 'com.neovisionaries', 'dev.array21.mc2fadiscord.deps.com.neovisionaries'
+	relocate 'gnu.trove.', 'dev.array21.mc2fadiscord.deps.gnu.trove'
+	relocate 'org.apache.', 'dev.array21.mc2fadiscord.deps.org.apache'
+	relocate 'org.intellij.', 'dev.array21.mc2fadiscord.deps.org.intellij'
+	relocate 'org.jetbrains', 'dev.array21.mc2fadiscord.deps.org.jetbrains'
+	relocate 'org.slf4j', 'dev.array21.mc2fadiscord.deps.org.dlf4j'
+
+	destinationDirectory = file("$rootDir/releases")
+}
+
+//This task is for GitHub Actions only
+task ghActions(type: ShadowJar) {
+	description 'GitHub Actions Task. Do not use in regular development!'
+	version = ''
+	archiveClassifier = ''
+	archiveBaseName = 'output'
+
+	from sourceSets.main.output
+	configurations = [project.configurations.runtimeClasspath]
+
+	relocate 'dev.array21.classvalidator', 'dev.array21.mc2fadiscord.deps.dev.array21.classvalidator'
+	relocate 'net.dv8tion.jda', 'dev.array21.mc2fadiscord.deps.net.dv8tion.jda'
+	relocate 'okhttp3', 'dev.array21.mc2fadiscord.deps.okhttp3'
+	relocate 'okio', 'dev.array21.mc2fadiscord.deps.okio'
+	relocate 'com.fasterxml', 'dev.array21.mc2fadiscord.deps.com.fasterxml'
+	relocate 'com.iwebpp', 'dev.array21.mc2fadiscord.deps.com.iwebpp'
+	relocate 'com.neovisionaries', 'dev.array21.mc2fadiscord.deps.com.neovisionaries'
+	relocate 'gnu.trove.', 'dev.array21.mc2fadiscord.deps.gnu.trove'
+	relocate 'org.apache.', 'dev.array21.mc2fadiscord.deps.org.apache'
+	relocate 'org.intellij.', 'dev.array21.mc2fadiscord.deps.org.intellij'
+	relocate 'org.jetbrains', 'dev.array21.mc2fadiscord.deps.org.jetbrains'
+	relocate 'org.slf4j', 'dev.array21.mc2fadiscord.deps.org.dlf4j'
+
+	destinationDirectory = file("$rootDir/actions")
+}
+
