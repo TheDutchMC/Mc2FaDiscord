@@ -23,7 +23,6 @@ processResources {
 
 dependencies {
 	compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
-	compileOnly 'org.yaml:snakeyaml:1.30'
 	compileOnly 'com.google.code.gson:gson:2.8.9'
 
 	implementation 'org.slf4j:log4j-over-slf4j:2.0.0-alpha5'
