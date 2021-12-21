@@ -4,8 +4,10 @@ import dev.array21.mc2fadiscord.Mc2FaDiscord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.block.data.BlockData;
 
 import java.util.UUID;
 
@@ -39,6 +41,8 @@ public class WorldHandler {
                 this.world = maybeWorld;
             }
         }
+
+        this.world.setBlockData(0, 99, 0, Material.BARRIER.createBlockData());
     }
 
     private World generateWorld() {

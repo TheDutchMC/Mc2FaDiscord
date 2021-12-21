@@ -85,6 +85,17 @@ public class DatabaseHandler {
         return Optional.of(UUID.fromString(uuidString));
     }
 
+    public Optional<UUID> getAssociatedMinecraftuser(final long discordId) {
+        PreparedStatement pr = new PreparedStatement("SELECT PlayerUuid FROM PlayerDiscord WHERE DiscordId = '?'");
+        pr.bind(0, discordId);
+        SqlRow[] result = executeStatement(pr);
+        if(result.length == 0) {
+            return Optional.empty();
+        }
+        SqlRow zeroth = result[0];
+        return Optional.of(UUID.fromString(zeroth.getString("PlayerUuid")));
+    }
+
     public Optional<Long> getAssociatedDiscordUser(final UUID playerUuid) {
         PreparedStatement pr = new PreparedStatement("SELECT DiscordId FROM PlayerDiscord WHERE PlayerUuid = '?'");
         pr.bind(0, playerUuid.toString());

@@ -53,11 +53,10 @@ task testJar(type: ShadowJar) {
 	relocate 'com.fasterxml', 'dev.array21.mc2fadiscord.deps.com.fasterxml'
 	relocate 'com.iwebpp', 'dev.array21.mc2fadiscord.deps.com.iwebpp'
 	relocate 'com.neovisionaries', 'dev.array21.mc2fadiscord.deps.com.neovisionaries'
-	relocate 'gnu.trove.', 'dev.array21.mc2fadiscord.deps.gnu.trove'
-	relocate 'org.apache.', 'dev.array21.mc2fadiscord.deps.org.apache'
+	relocate 'gnu.trove', 'dev.array21.mc2fadiscord.deps.gnu.trove'
+	relocate 'org.apache.commons', 'dev.array21.mc2fadiscord.deps.org.apache.commons'
 	relocate 'org.intellij.', 'dev.array21.mc2fadiscord.deps.org.intellij'
 	relocate 'org.jetbrains', 'dev.array21.mc2fadiscord.deps.org.jetbrains'
-	relocate 'org.slf4j', 'dev.array21.mc2fadiscord.deps.org.dlf4j'
 
 	destinationDirectory = file("$rootDir/server/plugins")
 }
@@ -77,10 +76,10 @@ task releaseJar(type: ShadowJar) {
 	relocate 'com.iwebpp', 'dev.array21.mc2fadiscord.deps.com.iwebpp'
 	relocate 'com.neovisionaries', 'dev.array21.mc2fadiscord.deps.com.neovisionaries'
 	relocate 'gnu.trove.', 'dev.array21.mc2fadiscord.deps.gnu.trove'
-	relocate 'org.apache.', 'dev.array21.mc2fadiscord.deps.org.apache'
+	relocate 'org.apache.commons', 'dev.array21.mc2fadiscord.deps.org.apache.commons'
 	relocate 'org.intellij.', 'dev.array21.mc2fadiscord.deps.org.intellij'
 	relocate 'org.jetbrains', 'dev.array21.mc2fadiscord.deps.org.jetbrains'
-	relocate 'org.slf4j', 'dev.array21.mc2fadiscord.deps.org.dlf4j'
+
 
 	destinationDirectory = file("$rootDir/releases")
 }
@@ -103,10 +102,9 @@ task ghActions(type: ShadowJar) {
 	relocate 'com.iwebpp', 'dev.array21.mc2fadiscord.deps.com.iwebpp'
 	relocate 'com.neovisionaries', 'dev.array21.mc2fadiscord.deps.com.neovisionaries'
 	relocate 'gnu.trove.', 'dev.array21.mc2fadiscord.deps.gnu.trove'
-	relocate 'org.apache.', 'dev.array21.mc2fadiscord.deps.org.apache'
+	relocate 'org.apache.commons', 'dev.array21.mc2fadiscord.deps.org.apache.commons'
 	relocate 'org.intellij.', 'dev.array21.mc2fadiscord.deps.org.intellij'
 	relocate 'org.jetbrains', 'dev.array21.mc2fadiscord.deps.org.jetbrains'
-	relocate 'org.slf4j', 'dev.array21.mc2fadiscord.deps.org.dlf4j'
 
 	destinationDirectory = file("$rootDir/actions")
 }

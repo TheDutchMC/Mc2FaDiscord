@@ -17,6 +17,9 @@ public class ConfigManifest {
     private boolean applyToOp;
     private UUID worldUuid;
 
+    private String[] postVerifyConsoleCommands;
+    private String[] postVerifyPlayerCommands;
+
     @Required
     private Long guildId;
 
@@ -58,6 +61,15 @@ public class ConfigManifest {
 
     public long getGuildId() {
         return this.guildId;
+    }
+
+    // Variables: %PLAYER%: The Player's name
+    public String[] getPostVerifyConsoleCommands() {
+        return this.postVerifyConsoleCommands != null ? this.postVerifyConsoleCommands : new String[0];
+    }
+
+    public String[] getPostVerifyPlayerCommands() {
+        return this.postVerifyPlayerCommands != null ? this.postVerifyPlayerCommands : new String[0];
     }
 
     public class MysqlConfig {

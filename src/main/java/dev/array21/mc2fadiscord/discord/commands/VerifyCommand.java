@@ -7,10 +7,13 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -71,8 +74,6 @@ public class VerifyCommand extends ListenerAdapter {
             @Override
             public void run() {
                 player.teleport(oldLocation.get());
-                player.setFlying(false);
-                player.setAllowFlight(false);
             }
         }.runTask(this.plugin);
 
@@ -84,6 +85,20 @@ public class VerifyCommand extends ListenerAdapter {
 
         // Cleanup
         this.plugin.getDatabaseHandler().removeVerificationCode(verificationUuid.get());
+
+        // Run post process commands
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for(String cmd : VerifyCommand.this.plugin.getConfigManifest().getPostVerifyConsoleCommands()) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%PLAYER%", player.getName()));
+                }
+
+                for(String cmd : VerifyCommand.this.plugin.getConfigManifest().getPostVerifyPlayerCommands()) {
+                    player.performCommand(cmd);
+                }
+            }
+        }.runTask(this.plugin);
 
         event.reply("Verified!").queue();
     }

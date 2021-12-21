@@ -70,8 +70,6 @@ public class PlayerJoinEventListener implements Listener {
         // 1: Teleport the Player
         LOGGER.debug("Teleporting player to verification World");
         Location newLocation = new Location(this.plugin.getVerificationWorld(), 0, 100, 0, 0f, 0f);
-        p.setAllowFlight(true);
-        p.setFlying(true);
         p.teleport(newLocation);
 
         // 2: Send the Player the code

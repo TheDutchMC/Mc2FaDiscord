@@ -45,6 +45,13 @@ public class AssociateCommand extends ListenerAdapter {
             return;
         }
 
+        Optional<UUID> maybeAlreadyAssociated = this.plugin.getDatabaseHandler().getAssociatedMinecraftuser(event.getMember().getIdLong());
+        if(maybeAlreadyAssociated.isPresent()) {
+            event.reply("This Discord account is already associated with a Minecraft player").queue();
+            player.sendMessage(String.format("%sAssociation cancelled", ChatColor.GOLD));
+            return;
+        }
+
         this.plugin.getDatabaseHandler().setAssociatedDiscordUser(associatedPlayer.get(), event.getMember().getIdLong());
         event.reply(String.format("This account is now associated with the Minecraft player %s", player.getName())).queue();
         player.sendMessage(String.format("%sThis account is now associated with the Discord user %s%s",
